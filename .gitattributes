@@ -1,0 +1,6 @@
+/gradlew text eol=lf
+*.bat text eol=crlf
+*.jar binary
+
+# Shell scripts run in Linux containers or Git Bash
+*.sh text eol=lf

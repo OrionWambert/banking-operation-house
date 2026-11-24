@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '25'
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      # Compiles, then runs the tests against a real Postgres 18 started by Testcontainers
+      - name: Build and test
+        run: chmod +x gradlew && ./gradlew build
+
+      - name: Check the Compose stack (all profiles)
+        run: docker compose --profile cdc --profile bi config --quiet
+
+      - name: Check the provisioning scripts
+        run: |
+          bash -n scripts/setup-cdc.sh
+          python3 -m py_compile metabase/provision.py
