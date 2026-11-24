@@ -1,5 +1,7 @@
 # Banking Operation House
 
+[![CI](https://github.com/OrionWambert/banking-operation-house/actions/workflows/ci.yml/badge.svg)](https://github.com/OrionWambert/banking-operation-house/actions/workflows/ci.yml)
+
 Real-time analytics on banking operations: a Spring Boot / Kotlin service writes to **PostgreSQL**, **PeerDB** streams every change to **ClickHouse** through change data capture (CDC), and **Metabase** serves the dashboards. The transactional database never runs an analytical query.
 
 ```mermaid
